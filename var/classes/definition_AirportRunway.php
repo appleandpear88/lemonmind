@@ -8,12 +8,12 @@
  * - runwayId [numeric]
  * - airportId [manyToOneRelation]
  * - lengthFt [numeric]
+ * - lengthMeters [calculatedValue]
  * - widthFt [numeric]
+ * - widthMeters [calculatedValue]
  * - surface [input]
  * - lighted [checkbox]
  * - closed [checkbox]
- * - lengthMeters [calculatedValue]
- * - widthMeters [calculatedValue]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -23,7 +23,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1700418611,
+   'modificationDate' => 1700517546,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -169,6 +169,32 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'defaultValueGenerator' => '',
           )),
           3 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
+             'name' => 'lengthMeters',
+             'title' => 'Length Meters',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'elementType' => 'input',
+             'calculatorType' => 'class',
+             'calculatorExpression' => '\\App\\Service\\LengthFtToMeters',
+             'calculatorClass' => '\\App\\Service\\LengthFtToMeters',
+             'columnLength' => 220,
+             'width' => '',
+          )),
+          4 => 
           \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
              'name' => 'widthFt',
              'title' => 'Width Ft',
@@ -198,7 +224,33 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'width' => '',
              'defaultValueGenerator' => '',
           )),
-          4 => 
+          5 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
+             'name' => 'widthMeters',
+             'title' => 'Width Meters',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'elementType' => 'input',
+             'calculatorType' => 'class',
+             'calculatorExpression' => 'object.getWidthFt() * 0.3048',
+             'calculatorClass' => '\\App\\Service\\WidthFtToMeters',
+             'columnLength' => 220,
+             'width' => '',
+          )),
+          6 => 
           \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'name' => 'surface',
              'title' => 'Surface',
@@ -228,7 +280,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'width' => '',
              'defaultValueGenerator' => '',
           )),
-          5 => 
+          7 => 
           \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
              'name' => 'lighted',
              'title' => 'Lighted',
@@ -250,7 +302,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'defaultValue' => NULL,
              'defaultValueGenerator' => '',
           )),
-          6 => 
+          8 => 
           \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
              'name' => 'closed',
              'title' => 'Closed',
@@ -271,58 +323,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             ),
              'defaultValue' => NULL,
              'defaultValueGenerator' => '',
-          )),
-          7 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
-             'name' => 'lengthMeters',
-             'title' => 'Length Meters',
-             'tooltip' => '',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'elementType' => 'input',
-             'calculatorType' => 'expression',
-             'calculatorExpression' => 'object.getLengthFt() * 0.3048',
-             'calculatorClass' => '',
-             'columnLength' => 190,
-             'width' => '',
-          )),
-          8 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
-             'name' => 'widthMeters',
-             'title' => 'Width Meters',
-             'tooltip' => '',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'elementType' => 'input',
-             'calculatorType' => 'expression',
-             'calculatorExpression' => 'object.getWidthFt() * 0.3048',
-             'calculatorClass' => '',
-             'columnLength' => 190,
-             'width' => '',
           )),
         ),
          'locked' => false,
@@ -381,32 +381,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
-    0 => 
-    \Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
-       'name' => 'length_m',
-       'title' => 'Length _m',
-       'tooltip' => '',
-       'mandatory' => false,
-       'noteditable' => false,
-       'index' => false,
-       'locked' => false,
-       'style' => '',
-       'permissions' => NULL,
-       'fieldtype' => '',
-       'relationType' => false,
-       'invisible' => false,
-       'visibleGridView' => false,
-       'visibleSearch' => false,
-       'blockedVarsForExport' => 
-      array (
-      ),
-       'elementType' => 'input',
-       'calculatorType' => 'expression',
-       'calculatorExpression' => 'object.getLengthFt() * 0.3048',
-       'calculatorClass' => '',
-       'columnLength' => 190,
-       'width' => '',
-    )),
   ),
    'blockedVarsForExport' => 
   array (

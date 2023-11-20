@@ -1,0 +1,110 @@
+pimcore_data_hub:
+    configurations:
+        todoListImport:
+            general:
+                active: true
+                type: dataImporterDataObject
+                name: todoListImport
+                description: ''
+                group: ''
+                path: null
+                modificationDate: 1700523634
+                createDate: 1700521447
+            loaderConfig:
+                type: http
+                settings:
+                    schema: 'https://'
+                    url: jsonplaceholder.typicode.com/todos/
+            interpreterConfig:
+                type: json
+            resolverConfig:
+                elementType: dataObject
+                dataObjectClassId: '4'
+                loadingStrategy:
+                    type: id
+                    settings:
+                        dataSourceIndex: id
+                createLocationStrategy:
+                    type: staticPath
+                    settings:
+                        path: /import/external
+                locationUpdateStrategy:
+                    type: staticPath
+                    settings:
+                        path: /import/external
+                publishingStrategy:
+                    type: alwaysPublish
+            processingConfig:
+                executionType: sequential
+                idDataIndex: id
+                doDeltaCheck: true
+                cleanup:
+                    doCleanup: true
+                    strategy: unpublish
+            mappingConfig:
+                -
+                    label: userId
+                    dataSourceIndex:
+                        - userId
+                    transformationResultType: numeric
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: userId
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline:
+                        -
+                            type: numeric
+                -
+                    label: listId
+                    dataSourceIndex:
+                        - id
+                    transformationResultType: numeric
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: listId
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline:
+                        -
+                            type: numeric
+                -
+                    label: title
+                    dataSourceIndex:
+                        - title
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: title
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+                -
+                    label: completed
+                    dataSourceIndex:
+                        - completed
+                    transformationResultType: boolean
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: completed
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline:
+                        -
+                            type: boolean
+            executionConfig:
+                scheduleType: recurring
+                cronDefinition: '*/15 * * * *'
+                scheduledAt: ''
+            permissions:
+                user: {  }
+                role: {  }
+            workspaces: {  }
