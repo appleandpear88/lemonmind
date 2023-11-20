@@ -20,6 +20,8 @@ class LengthFtToMeters extends FootToMeterConversionAbstract implements Calculat
         } else {
             Logger::error("unknown field");
         }
+
+        return '';
     }
 
     public function getCalculatedValueForEditMode(Concrete $object, CalculatedValue $context): string

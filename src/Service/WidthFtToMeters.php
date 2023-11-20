@@ -20,6 +20,8 @@ class WidthFtToMeters extends FootToMeterConversionAbstract implements Calculato
         } else {
             Logger::error("unknown field");
         }
+
+        return '';
     }
 
     public function getCalculatedValueForEditMode(Concrete $object, CalculatedValue $context): string

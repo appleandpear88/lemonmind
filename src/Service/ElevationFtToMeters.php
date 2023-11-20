@@ -20,6 +20,8 @@ class ElevationFtToMeters extends FootToMeterConversionAbstract implements Calcu
         } else {
             Logger::error("unknown field");
         }
+
+        return '';
     }
 
     public function getCalculatedValueForEditMode(Concrete $object, CalculatedValue $context): string
