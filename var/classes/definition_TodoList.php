@@ -5,7 +5,7 @@
  * Variants: no
  *
  * Fields Summary:
- * - userId [numeric]
+ * - userId [manyToOneRelation]
  * - listId [numeric]
  * - title [input]
  * - completed [checkbox]
@@ -18,7 +18,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1700522790,
+   'modificationDate' => 1700595006,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -62,34 +62,46 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'children' => 
         array (
           0 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+          \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
              'name' => 'userId',
              'title' => 'User Id',
              'tooltip' => '',
              'mandatory' => true,
              'noteditable' => true,
-             'index' => false,
+             'index' => true,
              'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'fieldtype' => '',
-             'relationType' => false,
+             'relationType' => true,
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
              'blockedVarsForExport' => 
             array (
             ),
-             'defaultValue' => NULL,
-             'integer' => false,
-             'unsigned' => false,
-             'minValue' => NULL,
-             'maxValue' => NULL,
-             'unique' => false,
-             'decimalSize' => NULL,
-             'decimalPrecision' => NULL,
+             'classes' => 
+            array (
+              0 => 
+              array (
+                'classes' => 'TodoListUser',
+              ),
+            ),
+             'displayMode' => 'grid',
+             'pathFormatterClass' => '',
+             'assetInlineDownloadAllowed' => false,
+             'assetUploadPath' => '',
+             'allowToClearRelation' => true,
+             'objectsAllowed' => true,
+             'assetsAllowed' => false,
+             'assetTypes' => 
+            array (
+            ),
+             'documentsAllowed' => false,
+             'documentTypes' => 
+            array (
+            ),
              'width' => '',
-             'defaultValueGenerator' => '',
           )),
           1 => 
           \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(

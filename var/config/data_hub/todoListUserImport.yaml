@@ -1,0 +1,65 @@
+pimcore_data_hub:
+    configurations:
+        todoListUserImport:
+            general:
+                type: dataImporterDataObject
+                name: todoListUserImport
+                description: ''
+                group: ''
+                active: false
+                path: null
+                modificationDate: 1700593023
+                createDate: 1700592785
+            loaderConfig:
+                type: http
+                settings:
+                    schema: 'https://'
+                    url: jsonplaceholder.typicode.com/todos/
+            interpreterConfig:
+                type: json
+            resolverConfig:
+                elementType: dataObject
+                dataObjectClassId: '5'
+                loadingStrategy:
+                    type: id
+                    settings:
+                        dataSourceIndex: userId
+                createLocationStrategy:
+                    type: staticPath
+                    settings:
+                        path: /todoList/user
+                locationUpdateStrategy:
+                    type: noChange
+                publishingStrategy:
+                    type: alwaysPublish
+            processingConfig:
+                executionType: sequential
+                idDataIndex: userId
+                doDeltaCheck: true
+                cleanup:
+                    doCleanup: true
+                    strategy: delete
+            mappingConfig:
+                -
+                    label: userId
+                    dataSourceIndex:
+                        - userId
+                    transformationResultType: numeric
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: userId
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline:
+                        -
+                            type: numeric
+            executionConfig:
+                scheduleType: job
+                cronDefinition: ''
+                scheduledAt: ''
+            permissions:
+                user: {  }
+                role: {  }
+            workspaces: {  }

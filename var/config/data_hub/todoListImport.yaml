@@ -2,14 +2,14 @@ pimcore_data_hub:
     configurations:
         todoListImport:
             general:
-                active: true
                 type: dataImporterDataObject
                 name: todoListImport
                 description: ''
                 group: ''
+                active: false
                 path: null
-                modificationDate: 1700523634
-                createDate: 1700521447
+                modificationDate: 1700594782
+                createDate: 1700594593
             loaderConfig:
                 type: http
                 settings:
@@ -27,11 +27,9 @@ pimcore_data_hub:
                 createLocationStrategy:
                     type: staticPath
                     settings:
-                        path: /import/external
+                        path: /todoList/list
                 locationUpdateStrategy:
-                    type: staticPath
-                    settings:
-                        path: /import/external
+                    type: noChange
                 publishingStrategy:
                     type: alwaysPublish
             processingConfig:
@@ -40,13 +38,13 @@ pimcore_data_hub:
                 doDeltaCheck: true
                 cleanup:
                     doCleanup: true
-                    strategy: unpublish
+                    strategy: delete
             mappingConfig:
                 -
                     label: userId
                     dataSourceIndex:
                         - userId
-                    transformationResultType: numeric
+                    transformationResultType: dataObject
                     dataTarget:
                         type: direct
                         settings:
@@ -54,11 +52,21 @@ pimcore_data_hub:
                             language: ''
                             writeIfTargetIsNotEmpty: true
                             writeIfSourceIsEmpty: true
+                    settings:
+                        loadStrategy: attribute
+                        attributeDataObjectClassId: '5'
+                        attributeName: userId
+                        attributeLanguage: ''
                     transformationPipeline:
                         -
-                            type: numeric
+                            settings:
+                                loadStrategy: attribute
+                                attributeDataObjectClassId: '5'
+                                attributeName: userId
+                                attributeLanguage: ''
+                            type: loadDataObject
                 -
-                    label: listId
+                    label: id
                     dataSourceIndex:
                         - id
                     transformationResultType: numeric
@@ -101,8 +109,8 @@ pimcore_data_hub:
                         -
                             type: boolean
             executionConfig:
-                scheduleType: recurring
-                cronDefinition: '*/15 * * * *'
+                scheduleType: job
+                cronDefinition: ''
                 scheduledAt: ''
             permissions:
                 user: {  }
