@@ -8,7 +8,7 @@ pimcore_data_hub:
                 group: ''
                 active: false
                 path: null
-                modificationDate: 1700594782
+                modificationDate: 1700595269
                 createDate: 1700594593
             loaderConfig:
                 type: http
@@ -109,8 +109,8 @@ pimcore_data_hub:
                         -
                             type: boolean
             executionConfig:
-                scheduleType: job
-                cronDefinition: ''
+                scheduleType: recurring
+                cronDefinition: '*/15 * * * *'
                 scheduledAt: ''
             permissions:
                 user: {  }
