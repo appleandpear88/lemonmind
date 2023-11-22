@@ -1,0 +1,65 @@
+pimcore_data_hub:
+    configurations:
+        regionImport:
+            general:
+                active: true
+                type: dataImporterDataObject
+                name: regionImport
+                description: ''
+                group: ''
+                path: null
+                modificationDate: 1700679026
+                createDate: 1700678900
+            loaderConfig:
+                type: upload
+                settings:
+                    uploadFilePath: regionImport/upload.import
+            interpreterConfig:
+                type: csv
+                settings:
+                    skipFirstRow: true
+                    delimiter: ','
+                    enclosure: '"'
+                    escape: \
+            resolverConfig:
+                elementType: dataObject
+                dataObjectClassId: '9'
+                loadingStrategy:
+                    type: attribute
+                    settings:
+                        dataSourceIndex: '9'
+                        attributeName: isoCode
+                        language: ''
+                createLocationStrategy:
+                    type: staticPath
+                    settings:
+                        path: /regions
+                locationUpdateStrategy:
+                    type: noChange
+                publishingStrategy:
+                    type: alwaysPublish
+            processingConfig:
+                executionType: sequential
+                idDataIndex: ''
+            mappingConfig:
+                -
+                    label: region
+                    dataSourceIndex:
+                        - '9'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: isoCode
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+            executionConfig:
+                scheduleType: job
+                cronDefinition: ''
+                scheduledAt: ''
+            permissions:
+                user: {  }
+                role: {  }
+            workspaces: {  }

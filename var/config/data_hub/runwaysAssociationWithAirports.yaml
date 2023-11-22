@@ -1,0 +1,78 @@
+pimcore_data_hub:
+    configurations:
+        runwaysAssociationWithAirports:
+            general:
+                active: true
+                type: dataImporterDataObject
+                name: runwaysAssociationWithAirports
+                description: ''
+                group: ''
+                path: null
+                modificationDate: 1700684158
+                createDate: 1700683031
+            loaderConfig:
+                type: upload
+                settings:
+                    uploadFilePath: runwaysAssociationWithAirports/upload.import
+            interpreterConfig:
+                type: csv
+                settings:
+                    skipFirstRow: true
+                    delimiter: ','
+                    enclosure: '"'
+                    escape: \
+            resolverConfig:
+                elementType: dataObject
+                dataObjectClassId: '1'
+                loadingStrategy:
+                    type: attribute
+                    settings:
+                        dataSourceIndex: '1'
+                        attributeName: airportId
+                        language: ''
+                createLocationStrategy:
+                    type: doNotCreate
+                locationUpdateStrategy:
+                    type: noChange
+                publishingStrategy:
+                    type: noChangeUnpublishNew
+            processingConfig:
+                executionType: sequential
+                idDataIndex: ''
+            mappingConfig:
+                -
+                    label: runway
+                    dataSourceIndex:
+                        - '0'
+                    transformationResultType: dataObjectArray
+                    dataTarget:
+                        type: manyToManyRelation
+                        settings:
+                            fieldName: runway
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                            overwriteMode: merge
+                    settings:
+                        loadStrategy: attribute
+                        attributeDataObjectClassId: '3'
+                        attributeName: runwayId
+                        attributeLanguage: ''
+                    transformationPipeline:
+                        -
+                            type: asArray
+                        -
+                            settings:
+                                loadStrategy: attribute
+                                attributeDataObjectClassId: '3'
+                                attributeName: runwayId
+                                attributeLanguage: ''
+                            type: loadDataObject
+            executionConfig:
+                scheduleType: job
+                cronDefinition: ''
+                scheduledAt: ''
+            permissions:
+                user: {  }
+                role: {  }
+            workspaces: {  }

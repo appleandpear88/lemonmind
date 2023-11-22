@@ -11,18 +11,20 @@
  * - name [input]
  * - coordinates [geopoint]
  * - elevationFt [numeric]
+ * - elevationMeters [calculatedValue]
  * - continent [select]
  * - country [country]
- * - region [input]
- * - municipality [input]
+ * - region [manyToOneRelation]
+ * - municipality [manyToOneRelation]
  * - scheduledService [checkbox]
  * - gpsCode [input]
  * - iataCode [input]
  * - localCode [input]
- * - homeLink [link]
- * - wikipediaLink [link]
+ * - homeLink [input]
+ * - wikipediaLink [input]
  * - keywords [input]
- * - elevationMeters [calculatedValue]
+ * - radioFrequency [manyToManyRelation]
+ * - runway [manyToManyRelation]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -32,7 +34,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1700418973,
+   'modificationDate' => 1700682800,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -95,7 +97,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             array (
             ),
              'defaultValue' => NULL,
-             'integer' => false,
+             'integer' => true,
              'unsigned' => false,
              'minValue' => NULL,
              'maxValue' => NULL,
@@ -203,7 +205,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'defaultValueGenerator' => '',
              'width' => '',
              'optionsProviderType' => 'configure',
-             'optionsProviderClass' => '',
+             'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
              'optionsProviderData' => '',
           )),
           3 => 
@@ -293,6 +295,32 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'defaultValueGenerator' => '',
           )),
           6 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
+             'name' => 'elevationMeters',
+             'title' => 'Elevation Meters',
+             'tooltip' => 'Elevation value converted from foot to meters, auto-calculated.',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'elementType' => 'input',
+             'calculatorType' => 'class',
+             'calculatorExpression' => 'object.getElevationFt() * 0.3048',
+             'calculatorClass' => '\\App\\Service\\ElevationFtToMeters',
+             'columnLength' => 190,
+             'width' => 220,
+          )),
+          7 => 
           \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
              'name' => 'continent',
              'title' => 'Continent',
@@ -358,7 +386,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
              'optionsProviderData' => '',
           )),
-          7 => 
+          8 => 
           \Pimcore\Model\DataObject\ClassDefinition\Data\Country::__set_state(array(
              'name' => 'country',
              'title' => 'Country',
@@ -387,8 +415,8 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'optionsProviderData' => NULL,
              'restrictTo' => '',
           )),
-          8 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+          9 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
              'name' => 'region',
              'title' => 'Region',
              'tooltip' => 'ISO region',
@@ -399,26 +427,38 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'style' => '',
              'permissions' => NULL,
              'fieldtype' => '',
-             'relationType' => false,
+             'relationType' => true,
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
              'blockedVarsForExport' => 
             array (
             ),
-             'defaultValue' => NULL,
-             'columnLength' => 6,
-             'regex' => '^([A-Z]{2}-[0-9A-Z]+)(-[A-Z])?$',
-             'regexFlags' => 
+             'classes' => 
+            array (
+              0 => 
+              array (
+                'classes' => 'Region',
+              ),
+            ),
+             'displayMode' => 'grid',
+             'pathFormatterClass' => '',
+             'assetInlineDownloadAllowed' => false,
+             'assetUploadPath' => '',
+             'allowToClearRelation' => false,
+             'objectsAllowed' => true,
+             'assetsAllowed' => false,
+             'assetTypes' => 
             array (
             ),
-             'unique' => false,
-             'showCharCount' => false,
+             'documentsAllowed' => false,
+             'documentTypes' => 
+            array (
+            ),
              'width' => '',
-             'defaultValueGenerator' => '',
           )),
-          9 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+          10 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
              'name' => 'municipality',
              'title' => 'Municipality',
              'tooltip' => '',
@@ -429,25 +469,37 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'style' => '',
              'permissions' => NULL,
              'fieldtype' => '',
-             'relationType' => false,
+             'relationType' => true,
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
              'blockedVarsForExport' => 
             array (
             ),
-             'defaultValue' => NULL,
-             'columnLength' => 50,
-             'regex' => '',
-             'regexFlags' => 
+             'classes' => 
+            array (
+              0 => 
+              array (
+                'classes' => 'Municipality',
+              ),
+            ),
+             'displayMode' => 'grid',
+             'pathFormatterClass' => '',
+             'assetInlineDownloadAllowed' => false,
+             'assetUploadPath' => '',
+             'allowToClearRelation' => true,
+             'objectsAllowed' => true,
+             'assetsAllowed' => false,
+             'assetTypes' => 
             array (
             ),
-             'unique' => false,
-             'showCharCount' => false,
+             'documentsAllowed' => false,
+             'documentTypes' => 
+            array (
+            ),
              'width' => '',
-             'defaultValueGenerator' => '',
           )),
-          10 => 
+          11 => 
           \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
              'name' => 'scheduledService',
              'title' => 'Scheduled Service',
@@ -469,7 +521,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'defaultValue' => NULL,
              'defaultValueGenerator' => '',
           )),
-          11 => 
+          12 => 
           \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'name' => 'gpsCode',
              'title' => 'Gps Code',
@@ -499,7 +551,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'width' => '',
              'defaultValueGenerator' => '',
           )),
-          12 => 
+          13 => 
           \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'name' => 'iataCode',
              'title' => 'Iata Code',
@@ -529,7 +581,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'width' => '',
              'defaultValueGenerator' => '',
           )),
-          13 => 
+          14 => 
           \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'name' => 'localCode',
              'title' => 'Local Code',
@@ -553,16 +605,14 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'regex' => '(^$|^[A-Z0-9]{1,7}$)',
              'regexFlags' => 
             array (
-              0 => 'g',
-              1 => 'm',
             ),
              'unique' => false,
              'showCharCount' => false,
              'width' => '',
              'defaultValueGenerator' => '',
           )),
-          14 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Link::__set_state(array(
+          15 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'name' => 'homeLink',
              'title' => 'Home Link',
              'tooltip' => '',
@@ -580,18 +630,19 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'blockedVarsForExport' => 
             array (
             ),
-             'allowedTypes' => 
+             'defaultValue' => NULL,
+             'columnLength' => 190,
+             'regex' => '(((http|https):\\/\\/)|(\\/)|(..\\/))(\\w+:{0,1}\\w*@)?(\\S+)(:[0-9]+)?(\\/|\\/([\\w#!:.?+=&%@!\\-\\/]))?',
+             'regexFlags' => 
             array (
             ),
-             'allowedTargets' => 
-            array (
-            ),
-             'disabledFields' => 
-            array (
-            ),
+             'unique' => false,
+             'showCharCount' => false,
+             'width' => '',
+             'defaultValueGenerator' => '',
           )),
-          15 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Link::__set_state(array(
+          16 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'name' => 'wikipediaLink',
              'title' => 'Wikipedia Link',
              'tooltip' => '',
@@ -609,17 +660,18 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'blockedVarsForExport' => 
             array (
             ),
-             'allowedTypes' => 
+             'defaultValue' => NULL,
+             'columnLength' => 190,
+             'regex' => '(((http|https):\\/\\/)|(\\/)|(..\\/))(\\w+:{0,1}\\w*@)?(\\S+)(:[0-9]+)?(\\/|\\/([\\w#!:.?+=&%@!\\-\\/]))?',
+             'regexFlags' => 
             array (
             ),
-             'allowedTargets' => 
-            array (
-            ),
-             'disabledFields' => 
-            array (
-            ),
+             'unique' => false,
+             'showCharCount' => false,
+             'width' => '',
+             'defaultValueGenerator' => '',
           )),
-          16 => 
+          17 => 
           \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'name' => 'keywords',
              'title' => 'Keywords',
@@ -649,10 +701,10 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'width' => '',
              'defaultValueGenerator' => '',
           )),
-          17 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
-             'name' => 'elevationMeters',
-             'title' => 'Elevation Meters',
+          18 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
+             'name' => 'radioFrequency',
+             'title' => 'Radio Frequency',
              'tooltip' => '',
              'mandatory' => false,
              'noteditable' => false,
@@ -661,19 +713,99 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'style' => '',
              'permissions' => NULL,
              'fieldtype' => '',
-             'relationType' => false,
+             'relationType' => true,
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
              'blockedVarsForExport' => 
             array (
             ),
-             'elementType' => 'input',
-             'calculatorType' => 'expression',
-             'calculatorExpression' => 'object.getElevationFt() * 0.3048',
-             'calculatorClass' => '',
-             'columnLength' => 190,
+             'classes' => 
+            array (
+              0 => 
+              array (
+                'classes' => 'Frequency',
+              ),
+            ),
+             'displayMode' => NULL,
+             'pathFormatterClass' => '',
+             'maxItems' => NULL,
+             'assetInlineDownloadAllowed' => false,
+             'assetUploadPath' => '',
+             'allowToClearRelation' => false,
+             'objectsAllowed' => true,
+             'assetsAllowed' => false,
+             'assetTypes' => 
+            array (
+              0 => 
+              array (
+                'assetTypes' => '',
+              ),
+            ),
+             'documentsAllowed' => false,
+             'documentTypes' => 
+            array (
+              0 => 
+              array (
+                'documentTypes' => '',
+              ),
+            ),
+             'enableTextSelection' => false,
              'width' => '',
+             'height' => '',
+          )),
+          19 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
+             'name' => 'runway',
+             'title' => 'Runway',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => true,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'classes' => 
+            array (
+              0 => 
+              array (
+                'classes' => 'AirportRunway',
+              ),
+            ),
+             'displayMode' => NULL,
+             'pathFormatterClass' => '',
+             'maxItems' => NULL,
+             'assetInlineDownloadAllowed' => false,
+             'assetUploadPath' => '',
+             'allowToClearRelation' => false,
+             'objectsAllowed' => true,
+             'assetsAllowed' => false,
+             'assetTypes' => 
+            array (
+              0 => 
+              array (
+                'assetTypes' => '',
+              ),
+            ),
+             'documentsAllowed' => false,
+             'documentTypes' => 
+            array (
+              0 => 
+              array (
+                'documentTypes' => '',
+              ),
+            ),
+             'enableTextSelection' => false,
+             'width' => '',
+             'height' => '',
           )),
         ),
          'locked' => false,

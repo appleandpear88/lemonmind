@@ -1,0 +1,67 @@
+pimcore_data_hub:
+    configurations:
+        frequencyMhzImport:
+            general:
+                active: true
+                type: dataImporterDataObject
+                name: frequencyMhzImport
+                description: ''
+                group: ''
+                path: null
+                modificationDate: 1700679853
+                createDate: 1700679733
+            loaderConfig:
+                type: upload
+                settings:
+                    uploadFilePath: frequencyMhzImport/upload.import
+            interpreterConfig:
+                type: csv
+                settings:
+                    skipFirstRow: true
+                    delimiter: ','
+                    enclosure: '"'
+                    escape: \
+            resolverConfig:
+                elementType: dataObject
+                dataObjectClassId: '7'
+                loadingStrategy:
+                    type: attribute
+                    settings:
+                        dataSourceIndex: '5'
+                        attributeName: frequencyMhz
+                        language: ''
+                createLocationStrategy:
+                    type: staticPath
+                    settings:
+                        path: /radio/frequency
+                locationUpdateStrategy:
+                    type: noChange
+                publishingStrategy:
+                    type: alwaysPublish
+            processingConfig:
+                executionType: sequential
+                idDataIndex: ''
+            mappingConfig:
+                -
+                    label: frequencyMhz
+                    dataSourceIndex:
+                        - '5'
+                    transformationResultType: numeric
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: frequencyMhz
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline:
+                        -
+                            type: numeric
+            executionConfig:
+                scheduleType: job
+                cronDefinition: ''
+                scheduledAt: ''
+            permissions:
+                user: {  }
+                role: {  }
+            workspaces: {  }
