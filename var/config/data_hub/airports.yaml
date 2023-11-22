@@ -8,7 +8,7 @@ pimcore_data_hub:
                 description: ''
                 group: ''
                 path: null
-                modificationDate: 1700517641
+                modificationDate: 1700682366
                 createDate: 1700426258
             loaderConfig:
                 type: upload
@@ -31,19 +31,16 @@ pimcore_data_hub:
                 createLocationStrategy:
                     type: staticPath
                     settings:
-                        path: /import
+                        path: /airports
                 locationUpdateStrategy:
-                    type: staticPath
-                    settings:
-                        path: /import
+                    type: noChange
                 publishingStrategy:
                     type: alwaysPublish
             processingConfig:
                 executionType: sequential
                 idDataIndex: '0'
                 cleanup:
-                    doCleanup: true
-                    strategy: delete
+                    strategy: unpublish
             mappingConfig:
                 -
                     label: 'id '
@@ -159,32 +156,6 @@ pimcore_data_hub:
                             writeIfSourceIsEmpty: true
                     transformationPipeline: {  }
                 -
-                    label: iso_region
-                    dataSourceIndex:
-                        - '9'
-                    transformationResultType: default
-                    dataTarget:
-                        type: direct
-                        settings:
-                            fieldName: region
-                            language: ''
-                            writeIfTargetIsNotEmpty: true
-                            writeIfSourceIsEmpty: true
-                    transformationPipeline: {  }
-                -
-                    label: municipality
-                    dataSourceIndex:
-                        - '10'
-                    transformationResultType: default
-                    dataTarget:
-                        type: direct
-                        settings:
-                            fieldName: municipality
-                            language: ''
-                            writeIfTargetIsNotEmpty: true
-                            writeIfSourceIsEmpty: true
-                    transformationPipeline: {  }
-                -
                     label: scheduled_service
                     dataSourceIndex:
                         - '11'
@@ -289,10 +260,60 @@ pimcore_data_hub:
                             settings:
                                 mode: both
                             type: trim
+                -
+                    label: iso_region
+                    dataSourceIndex:
+                        - '9'
+                    transformationResultType: dataObject
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: region
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    settings:
+                        loadStrategy: attribute
+                        attributeDataObjectClassId: '9'
+                        attributeName: isoCode
+                        attributeLanguage: ''
+                    transformationPipeline:
+                        -
+                            settings:
+                                loadStrategy: attribute
+                                attributeDataObjectClassId: '9'
+                                attributeName: isoCode
+                                attributeLanguage: ''
+                            type: loadDataObject
+                -
+                    label: municipality
+                    dataSourceIndex:
+                        - '10'
+                    transformationResultType: dataObject
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: municipality
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    settings:
+                        loadStrategy: attribute
+                        attributeDataObjectClassId: '10'
+                        attributeName: municipality
+                        attributeLanguage: ''
+                    transformationPipeline:
+                        -
+                            settings:
+                                loadStrategy: attribute
+                                attributeDataObjectClassId: '10'
+                                attributeName: municipality
+                                attributeLanguage: ''
+                            type: loadDataObject
             executionConfig:
                 scheduleType: job
                 cronDefinition: ''
-                scheduledAt: '19-11-2023 23:32'
+                scheduledAt: ''
             permissions:
                 user: {  }
                 role: {  }

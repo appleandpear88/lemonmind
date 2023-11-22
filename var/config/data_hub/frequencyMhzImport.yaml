@@ -1,19 +1,19 @@
 pimcore_data_hub:
     configurations:
-        radioFreqImport:
+        frequencyMhzImport:
             general:
+                active: true
                 type: dataImporterDataObject
-                name: radioFreqImport
+                name: frequencyMhzImport
                 description: ''
                 group: ''
-                active: false
                 path: null
-                modificationDate: 1700520356
-                createDate: 1700520247
+                modificationDate: 1700679853
+                createDate: 1700679733
             loaderConfig:
                 type: upload
                 settings:
-                    uploadFilePath: radioFreqImport/upload.import
+                    uploadFilePath: frequencyMhzImport/upload.import
             interpreterConfig:
                 type: csv
                 settings:
@@ -23,17 +23,19 @@ pimcore_data_hub:
                     escape: \
             resolverConfig:
                 elementType: dataObject
-                dataObjectClassId: '2'
+                dataObjectClassId: '7'
                 loadingStrategy:
-                    type: notLoad
+                    type: attribute
+                    settings:
+                        dataSourceIndex: '5'
+                        attributeName: frequencyMhz
+                        language: ''
                 createLocationStrategy:
                     type: staticPath
                     settings:
-                        path: /import
+                        path: /radio/frequency
                 locationUpdateStrategy:
-                    type: staticPath
-                    settings:
-                        path: /import
+                    type: noChange
                 publishingStrategy:
                     type: alwaysPublish
             processingConfig:
@@ -41,14 +43,14 @@ pimcore_data_hub:
                 idDataIndex: ''
             mappingConfig:
                 -
-                    label: id
+                    label: frequencyMhz
                     dataSourceIndex:
-                        - '0'
+                        - '5'
                     transformationResultType: numeric
                     dataTarget:
                         type: direct
                         settings:
-                            fieldName: freqId
+                            fieldName: frequencyMhz
                             language: ''
                             writeIfTargetIsNotEmpty: true
                             writeIfSourceIsEmpty: true
@@ -56,7 +58,7 @@ pimcore_data_hub:
                         -
                             type: numeric
             executionConfig:
-                scheduleType: recurring
+                scheduleType: job
                 cronDefinition: ''
                 scheduledAt: ''
             permissions:

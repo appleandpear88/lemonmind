@@ -1,0 +1,78 @@
+pimcore_data_hub:
+    configurations:
+        radioAssociationWithAirports:
+            general:
+                active: true
+                type: dataImporterDataObject
+                name: radioAssociationWithAirports
+                description: ''
+                group: ''
+                path: null
+                modificationDate: 1700685350
+                createDate: 1700684239
+            loaderConfig:
+                type: upload
+                settings:
+                    uploadFilePath: radioAssociationWithAirports/upload.import
+            interpreterConfig:
+                type: csv
+                settings:
+                    skipFirstRow: true
+                    delimiter: ','
+                    enclosure: '"'
+                    escape: \
+            resolverConfig:
+                elementType: dataObject
+                dataObjectClassId: '1'
+                loadingStrategy:
+                    type: attribute
+                    settings:
+                        dataSourceIndex: '1'
+                        attributeName: airportId
+                        language: ''
+                createLocationStrategy:
+                    type: doNotCreate
+                locationUpdateStrategy:
+                    type: noChange
+                publishingStrategy:
+                    type: noChangeUnpublishNew
+            processingConfig:
+                executionType: sequential
+                idDataIndex: ''
+            mappingConfig:
+                -
+                    label: radioFrequency
+                    dataSourceIndex:
+                        - '0'
+                    settings:
+                        loadStrategy: attribute
+                        attributeDataObjectClassId: '11'
+                        attributeName: frequencyId
+                        attributeLanguage: ''
+                    transformationResultType: dataObjectArray
+                    dataTarget:
+                        type: manyToManyRelation
+                        settings:
+                            fieldName: radioFrequency
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                            overwriteMode: merge
+                    transformationPipeline:
+                        -
+                            type: asArray
+                        -
+                            settings:
+                                loadStrategy: attribute
+                                attributeDataObjectClassId: '11'
+                                attributeName: frequencyId
+                                attributeLanguage: ''
+                            type: loadDataObject
+            executionConfig:
+                scheduleType: job
+                cronDefinition: ''
+                scheduledAt: ''
+            permissions:
+                user: {  }
+                role: {  }
+            workspaces: {  }

@@ -1,19 +1,19 @@
 pimcore_data_hub:
     configurations:
-        runwaysImport:
+        frequencyImport:
             general:
                 active: true
                 type: dataImporterDataObject
-                name: runwaysImport
+                name: frequencyImport
                 description: ''
                 group: ''
                 path: null
-                modificationDate: 1700678343
-                createDate: 1700517610
+                modificationDate: 1700685177
+                createDate: 1700679733
             loaderConfig:
                 type: upload
                 settings:
-                    uploadFilePath: runwaysImport/upload.import
+                    uploadFilePath: frequencyImport/upload.import
             interpreterConfig:
                 type: csv
                 settings:
@@ -23,7 +23,7 @@ pimcore_data_hub:
                     escape: \
             resolverConfig:
                 elementType: dataObject
-                dataObjectClassId: '3'
+                dataObjectClassId: '11'
                 loadingStrategy:
                     type: id
                     settings:
@@ -31,117 +31,93 @@ pimcore_data_hub:
                 createLocationStrategy:
                     type: staticPath
                     settings:
-                        path: /runways
+                        path: /radio
                 locationUpdateStrategy:
                     type: noChange
                 publishingStrategy:
                     type: alwaysPublish
             processingConfig:
                 executionType: sequential
-                idDataIndex: '0'
-                cleanup:
-                    strategy: delete
+                idDataIndex: ''
             mappingConfig:
                 -
-                    label: runwayId
+                    label: description
+                    dataSourceIndex:
+                        - '4'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: description
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+                -
+                    label: frequencyMhz
+                    dataSourceIndex:
+                        - '5'
+                    settings:
+                        loadStrategy: attribute
+                        attributeDataObjectClassId: '7'
+                        attributeName: frequencyMhz
+                        attributeLanguage: ''
+                    transformationResultType: dataObject
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: frequencyMhz
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline:
+                        -
+                            settings:
+                                loadStrategy: attribute
+                                attributeDataObjectClassId: '7'
+                                attributeName: frequencyMhz
+                                attributeLanguage: ''
+                            type: loadDataObject
+                -
+                    label: frequencyType
+                    dataSourceIndex:
+                        - '3'
+                    settings:
+                        loadStrategy: attribute
+                        attributeDataObjectClassId: '6'
+                        attributeName: code
+                        attributeLanguage: ''
+                    transformationResultType: dataObject
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: frequencyType
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline:
+                        -
+                            settings:
+                                loadStrategy: attribute
+                                attributeDataObjectClassId: '6'
+                                attributeName: code
+                                attributeLanguage: ''
+                            type: loadDataObject
+                -
+                    label: id
                     dataSourceIndex:
                         - '0'
                     transformationResultType: numeric
                     dataTarget:
                         type: direct
                         settings:
-                            fieldName: runwayId
+                            fieldName: frequencyId
                             language: ''
                             writeIfTargetIsNotEmpty: true
                             writeIfSourceIsEmpty: true
                     transformationPipeline:
                         -
                             type: numeric
-                -
-                    label: 'new column'
-                    dataSourceIndex:
-                        - '5'
-                    transformationResultType: dataObject
-                    dataTarget:
-                        type: direct
-                        settings:
-                            fieldName: surface
-                            language: ''
-                            writeIfTargetIsNotEmpty: true
-                            writeIfSourceIsEmpty: true
-                    settings:
-                        loadStrategy: attribute
-                        attributeDataObjectClassId: '8'
-                        attributeName: Surface
-                        attributeLanguage: ''
-                    transformationPipeline:
-                        -
-                            settings:
-                                loadStrategy: attribute
-                                attributeDataObjectClassId: '8'
-                                attributeName: Surface
-                                attributeLanguage: ''
-                            type: loadDataObject
-                -
-                    label: lengthFt
-                    dataSourceIndex:
-                        - '3'
-                    transformationResultType: numeric
-                    dataTarget:
-                        type: direct
-                        settings:
-                            fieldName: lengthFt
-                            language: ''
-                            writeIfTargetIsNotEmpty: true
-                            writeIfSourceIsEmpty: true
-                    transformationPipeline:
-                        -
-                            type: numeric
-                -
-                    label: widthFt
-                    dataSourceIndex:
-                        - '4'
-                    transformationResultType: numeric
-                    dataTarget:
-                        type: direct
-                        settings:
-                            fieldName: widthFt
-                            language: ''
-                            writeIfTargetIsNotEmpty: true
-                            writeIfSourceIsEmpty: true
-                    transformationPipeline:
-                        -
-                            type: numeric
-                -
-                    label: isLighted
-                    dataSourceIndex:
-                        - '6'
-                    transformationResultType: boolean
-                    dataTarget:
-                        type: direct
-                        settings:
-                            fieldName: lighted
-                            language: ''
-                            writeIfTargetIsNotEmpty: true
-                            writeIfSourceIsEmpty: true
-                    transformationPipeline:
-                        -
-                            type: boolean
-                -
-                    label: isClosed
-                    dataSourceIndex:
-                        - '7'
-                    transformationResultType: boolean
-                    dataTarget:
-                        type: direct
-                        settings:
-                            fieldName: closed
-                            language: ''
-                            writeIfTargetIsNotEmpty: true
-                            writeIfSourceIsEmpty: true
-                    transformationPipeline:
-                        -
-                            type: boolean
             executionConfig:
                 scheduleType: job
                 cronDefinition: ''

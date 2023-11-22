@@ -6,14 +6,14 @@
  *
  * Fields Summary:
  * - runwayId [numeric]
- * - airportId [manyToOneRelation]
  * - lengthFt [numeric]
  * - lengthMeters [calculatedValue]
  * - widthFt [numeric]
  * - widthMeters [calculatedValue]
- * - surface [input]
+ * - surface [manyToOneRelation]
  * - lighted [checkbox]
  * - closed [checkbox]
+ * - airport [manyToManyRelation]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -23,7 +23,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1700517546,
+   'modificationDate' => 1700682602,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -97,48 +97,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'defaultValueGenerator' => '',
           )),
           1 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-             'name' => 'airportId',
-             'title' => 'Airport Id',
-             'tooltip' => '',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => true,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'classes' => 
-            array (
-              0 => 
-              array (
-                'classes' => 'Airport',
-              ),
-            ),
-             'displayMode' => 'grid',
-             'pathFormatterClass' => '',
-             'assetInlineDownloadAllowed' => false,
-             'assetUploadPath' => '',
-             'allowToClearRelation' => true,
-             'objectsAllowed' => true,
-             'assetsAllowed' => false,
-             'assetTypes' => 
-            array (
-            ),
-             'documentsAllowed' => false,
-             'documentTypes' => 
-            array (
-            ),
-             'width' => '',
-          )),
-          2 => 
           \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
              'name' => 'lengthFt',
              'title' => 'Length Ft',
@@ -168,7 +126,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'width' => '',
              'defaultValueGenerator' => '',
           )),
-          3 => 
+          2 => 
           \Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
              'name' => 'lengthMeters',
              'title' => 'Length Meters',
@@ -191,10 +149,10 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'calculatorType' => 'class',
              'calculatorExpression' => '\\App\\Service\\LengthFtToMeters',
              'calculatorClass' => '\\App\\Service\\LengthFtToMeters',
-             'columnLength' => 220,
-             'width' => '',
+             'columnLength' => 190,
+             'width' => 220,
           )),
-          4 => 
+          3 => 
           \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
              'name' => 'widthFt',
              'title' => 'Width Ft',
@@ -224,7 +182,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'width' => '',
              'defaultValueGenerator' => '',
           )),
-          5 => 
+          4 => 
           \Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
              'name' => 'widthMeters',
              'title' => 'Width Meters',
@@ -247,11 +205,11 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'calculatorType' => 'class',
              'calculatorExpression' => 'object.getWidthFt() * 0.3048',
              'calculatorClass' => '\\App\\Service\\WidthFtToMeters',
-             'columnLength' => 220,
-             'width' => '',
+             'columnLength' => 190,
+             'width' => 220,
           )),
-          6 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+          5 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
              'name' => 'surface',
              'title' => 'Surface',
              'tooltip' => '',
@@ -262,25 +220,37 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'style' => '',
              'permissions' => NULL,
              'fieldtype' => '',
-             'relationType' => false,
+             'relationType' => true,
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
              'blockedVarsForExport' => 
             array (
             ),
-             'defaultValue' => NULL,
-             'columnLength' => 100,
-             'regex' => '',
-             'regexFlags' => 
+             'classes' => 
+            array (
+              0 => 
+              array (
+                'classes' => 'RunwaySurface',
+              ),
+            ),
+             'displayMode' => 'grid',
+             'pathFormatterClass' => '',
+             'assetInlineDownloadAllowed' => false,
+             'assetUploadPath' => '',
+             'allowToClearRelation' => false,
+             'objectsAllowed' => true,
+             'assetsAllowed' => false,
+             'assetTypes' => 
             array (
             ),
-             'unique' => false,
-             'showCharCount' => false,
+             'documentsAllowed' => false,
+             'documentTypes' => 
+            array (
+            ),
              'width' => '',
-             'defaultValueGenerator' => '',
           )),
-          7 => 
+          6 => 
           \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
              'name' => 'lighted',
              'title' => 'Lighted',
@@ -302,7 +272,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'defaultValue' => NULL,
              'defaultValueGenerator' => '',
           )),
-          8 => 
+          7 => 
           \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
              'name' => 'closed',
              'title' => 'Closed',
@@ -323,6 +293,59 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             ),
              'defaultValue' => NULL,
              'defaultValueGenerator' => '',
+          )),
+          8 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
+             'name' => 'airport',
+             'title' => 'Airport',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => true,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'classes' => 
+            array (
+              0 => 
+              array (
+                'classes' => 'Airport',
+              ),
+            ),
+             'displayMode' => NULL,
+             'pathFormatterClass' => '',
+             'maxItems' => NULL,
+             'assetInlineDownloadAllowed' => false,
+             'assetUploadPath' => '',
+             'allowToClearRelation' => true,
+             'objectsAllowed' => true,
+             'assetsAllowed' => false,
+             'assetTypes' => 
+            array (
+              0 => 
+              array (
+                'assetTypes' => '',
+              ),
+            ),
+             'documentsAllowed' => false,
+             'documentTypes' => 
+            array (
+              0 => 
+              array (
+                'documentTypes' => '',
+              ),
+            ),
+             'enableTextSelection' => false,
+             'width' => '',
+             'height' => '',
           )),
         ),
          'locked' => false,
@@ -381,6 +404,48 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
+    0 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+       'name' => 'airportId',
+       'title' => 'Airport Id',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => true,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'classes' => 
+      array (
+        0 => 
+        array (
+          'classes' => 'Airport',
+        ),
+      ),
+       'displayMode' => 'grid',
+       'pathFormatterClass' => '',
+       'assetInlineDownloadAllowed' => false,
+       'assetUploadPath' => '',
+       'allowToClearRelation' => false,
+       'objectsAllowed' => true,
+       'assetsAllowed' => false,
+       'assetTypes' => 
+      array (
+      ),
+       'documentsAllowed' => false,
+       'documentTypes' => 
+      array (
+      ),
+       'width' => '',
+    )),
   ),
    'blockedVarsForExport' => 
   array (

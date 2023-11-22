@@ -5,21 +5,21 @@
  * Variants: no
  *
  * Fields Summary:
- * - freqId [numeric]
- * - airportId [manyToOneRelation]
- * - frequencyTypeCode [input]
- * - decription [input]
- * - frequencyMhz [numeric]
+ * - frequencyId [numeric]
+ * - frequencyType [manyToOneRelation]
+ * - description [input]
+ * - frequencyMhz [manyToOneRelation]
+ * - airport [manyToManyRelation]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
-   'id' => '2',
-   'name' => 'AirportRadioFrequency',
+   'id' => '11',
+   'name' => 'Frequency',
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1700404645,
+   'modificationDate' => 1700685083,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -64,12 +64,12 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
         array (
           0 => 
           \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-             'name' => 'freqId',
-             'title' => 'Freq Id',
+             'name' => 'frequencyId',
+             'title' => 'Frequency Id',
              'tooltip' => '',
-             'mandatory' => true,
-             'noteditable' => true,
-             'index' => true,
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
              'locked' => false,
              'style' => '',
              'permissions' => NULL,
@@ -86,7 +86,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'unsigned' => false,
              'minValue' => NULL,
              'maxValue' => NULL,
-             'unique' => true,
+             'unique' => false,
              'decimalSize' => NULL,
              'decimalPrecision' => NULL,
              'width' => '',
@@ -94,8 +94,122 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           )),
           1 => 
           \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-             'name' => 'airportId',
-             'title' => 'Airport Id',
+             'name' => 'frequencyType',
+             'title' => 'Frequency Type',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => true,
+             'invisible' => false,
+             'visibleGridView' => true,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'classes' => 
+            array (
+              0 => 
+              array (
+                'classes' => 'FrequencyType',
+              ),
+            ),
+             'displayMode' => 'grid',
+             'pathFormatterClass' => '',
+             'assetInlineDownloadAllowed' => false,
+             'assetUploadPath' => '',
+             'allowToClearRelation' => false,
+             'objectsAllowed' => true,
+             'assetsAllowed' => false,
+             'assetTypes' => 
+            array (
+            ),
+             'documentsAllowed' => false,
+             'documentTypes' => 
+            array (
+            ),
+             'width' => '',
+          )),
+          2 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'name' => 'description',
+             'title' => 'Description',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => true,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'defaultValue' => NULL,
+             'columnLength' => 190,
+             'regex' => '',
+             'regexFlags' => 
+            array (
+            ),
+             'unique' => false,
+             'showCharCount' => false,
+             'width' => '',
+             'defaultValueGenerator' => '',
+          )),
+          3 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+             'name' => 'frequencyMhz',
+             'title' => 'Frequency Mhz',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => true,
+             'invisible' => false,
+             'visibleGridView' => true,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'classes' => 
+            array (
+              0 => 
+              array (
+                'classes' => 'FrequencyList',
+              ),
+            ),
+             'displayMode' => 'grid',
+             'pathFormatterClass' => '',
+             'assetInlineDownloadAllowed' => false,
+             'assetUploadPath' => '',
+             'allowToClearRelation' => false,
+             'objectsAllowed' => true,
+             'assetsAllowed' => false,
+             'assetTypes' => 
+            array (
+            ),
+             'documentsAllowed' => false,
+             'documentTypes' => 
+            array (
+            ),
+             'width' => '',
+          )),
+          4 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
+             'name' => 'airport',
+             'title' => 'Airport',
              'tooltip' => '',
              'mandatory' => false,
              'noteditable' => false,
@@ -118,111 +232,32 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 'classes' => 'Airport',
               ),
             ),
-             'displayMode' => 'grid',
+             'displayMode' => NULL,
              'pathFormatterClass' => '',
+             'maxItems' => NULL,
              'assetInlineDownloadAllowed' => false,
              'assetUploadPath' => '',
-             'allowToClearRelation' => true,
+             'allowToClearRelation' => false,
              'objectsAllowed' => true,
              'assetsAllowed' => false,
              'assetTypes' => 
             array (
+              0 => 
+              array (
+                'assetTypes' => '',
+              ),
             ),
              'documentsAllowed' => false,
              'documentTypes' => 
             array (
+              0 => 
+              array (
+                'documentTypes' => '',
+              ),
             ),
+             'enableTextSelection' => false,
              'width' => '',
-          )),
-          2 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'name' => 'frequencyTypeCode',
-             'title' => 'Frequency Type Code',
-             'tooltip' => '',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'defaultValue' => NULL,
-             'columnLength' => 20,
-             'regex' => '',
-             'regexFlags' => 
-            array (
-            ),
-             'unique' => false,
-             'showCharCount' => false,
-             'width' => '',
-             'defaultValueGenerator' => '',
-          )),
-          3 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'name' => 'decription',
-             'title' => 'Decription',
-             'tooltip' => '',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'defaultValue' => NULL,
-             'columnLength' => 100,
-             'regex' => '',
-             'regexFlags' => 
-            array (
-            ),
-             'unique' => false,
-             'showCharCount' => false,
-             'width' => '',
-             'defaultValueGenerator' => '',
-          )),
-          4 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-             'name' => 'frequencyMhz',
-             'title' => 'Frequency Mhz',
-             'tooltip' => '',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'defaultValue' => NULL,
-             'integer' => false,
-             'unsigned' => false,
-             'minValue' => 74.0,
-             'maxValue' => 9500.0,
-             'unique' => false,
-             'decimalSize' => 6,
-             'decimalPrecision' => 3,
-             'width' => '',
-             'defaultValueGenerator' => '',
+             'height' => '',
           )),
         ),
          'locked' => false,

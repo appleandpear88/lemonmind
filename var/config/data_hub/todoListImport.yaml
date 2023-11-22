@@ -2,13 +2,13 @@ pimcore_data_hub:
     configurations:
         todoListImport:
             general:
+                active: true
                 type: dataImporterDataObject
                 name: todoListImport
                 description: ''
                 group: ''
-                active: false
                 path: null
-                modificationDate: 1700595269
+                modificationDate: 1700600152
                 createDate: 1700594593
             loaderConfig:
                 type: http
@@ -35,15 +35,18 @@ pimcore_data_hub:
             processingConfig:
                 executionType: sequential
                 idDataIndex: id
-                doDeltaCheck: true
                 cleanup:
-                    doCleanup: true
-                    strategy: delete
+                    strategy: unpublish
             mappingConfig:
                 -
                     label: userId
                     dataSourceIndex:
                         - userId
+                    settings:
+                        loadStrategy: attribute
+                        attributeDataObjectClassId: '5'
+                        attributeName: userId
+                        attributeLanguage: ''
                     transformationResultType: dataObject
                     dataTarget:
                         type: direct
@@ -52,11 +55,6 @@ pimcore_data_hub:
                             language: ''
                             writeIfTargetIsNotEmpty: true
                             writeIfSourceIsEmpty: true
-                    settings:
-                        loadStrategy: attribute
-                        attributeDataObjectClassId: '5'
-                        attributeName: userId
-                        attributeLanguage: ''
                     transformationPipeline:
                         -
                             settings:
